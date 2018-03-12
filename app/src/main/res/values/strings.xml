@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">IncludeCar</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="DriverInfo">Driver Information</string>
+    <string name="BloodGroup">Blood Group</string>
+    <string name="PersonalData">Personal Data</string>
+    <string name="MedicalHistory">Medical History</string>
+    <string name="Addict">Addict</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+    <string name="Smoker">Smoker</string>
+    <string name="Cancer">Cancer</string>
+    <string name="ChronicObstructivePulmonary">Chronic Obstructive Pulmonary</string>
+    <string name="Disease">Disease</string>
+    <string name="ClottingDisorder">Clotting Disorder</string>
+    <string name="HeartFailure">Heart Failure</string>
+    <string name="Diabetes">Diabetes</string>
+    <string name="Emhysema">Emhysema</string>
+    <string name="Hepatitis">Hepatitis</string>
+    <string name="Hypertension">Hypertension</string>
+    <string name="MyocardialInfraction">Myocardial Infraction</string>
+    <string name="Seizures">Seizures</string>
+    <string name="Strokes">Strokes</string>
+    <string name="SurgicalHistory">Surgical History</string>
+    <string name="Medications">Medications</string>
+    <string name="AllergiesToDrugs">Allergies To Drugs</string>
+    <string name="Prosthesis">Prosthesis</string>
+    <string name="Pregnant">Pregnant</string>
+    <string name="Name">Name</string>
+    <string name="Email">Email</string>
+    <string name="Phone">Phone Number</string>
+    <string name="Age">Age</string>
+    <string-array name="Blood_Group">
+        <item>A</item>
+        <item>AB</item>
+        <item>B</item>
+        <item>O</item>
+    </string-array>
+    <string name="OK">OK</string>
+</resources>
