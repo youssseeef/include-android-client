@@ -20,14 +20,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.firstrun.FirstRunActivity" />
-        <activity android:name=".activities.LoginActivity.LoginActivity">
+        <activity android:name=".activities.LoginActivity.LoginActivity"></activity>
+        <activity android:name=".activities.testactivity.TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.testactivity.TestActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -43,7 +43,10 @@
         <activity
             android:name=".activities.mapactivity.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".activities.userdataActivity.UserDataActivity"></activity>
+        <activity android:name=".activities.userdataActivity.UserDataActivity" />
+        <activity
+            android:name=".activities.mainActivity.MainActivity"
+            android:label="@string/title_activity_main"></activity>
     </application>
 
 </manifest>

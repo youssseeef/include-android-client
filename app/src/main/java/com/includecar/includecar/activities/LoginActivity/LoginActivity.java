@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ import io.paperdb.Paper;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText mUserNameEditText;
@@ -34,8 +36,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Paper.init(LoginActivity.this);
-
         mUserNameEditText = findViewById(R.id.usernameEditText);
         mPasswordEditText = findViewById(R.id.passwordEditText);
         mSignInButton = findViewById(R.id.signinbutton);
@@ -60,11 +60,16 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    backgroundThreadShortToast(LoginActivity.this,response.body().string().toString());
-                    if(response.body().string().toString().contains("success")){
+                    ResponseBody responseBody = response.body();
+                    String bodyString = responseBody.string();
+
+                    backgroundThreadShortToast(LoginActivity.this,bodyString);
+                    Log.e("LOGIN_ACTIVITY",bodyString);
+                    if(bodyString.contains("success")){
                         try{
-                            JSONObject jsonObject = new JSONObject( response.body().string().toString());
+                            JSONObject jsonObject = new JSONObject( bodyString);
                             String token = jsonObject.get("token").toString();
+                            Log.e("TOKEN_LOGIN_ACTIVITY",token);
                             Paper.book().write("login_Key",token);
                             moveToTestActivity();
                         }catch(JSONException e){

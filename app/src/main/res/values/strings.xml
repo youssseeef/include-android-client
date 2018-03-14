@@ -39,4 +39,8 @@
         <item>O</item>
     </string-array>
     <string name="OK">OK</string>
+    <string name="title_activity_main">Home</string>
+    <string name="title_home">Home</string>
+    <string name="title_map">Map</string>
+    <string name="title_user">Personal</string>
 </resources>
