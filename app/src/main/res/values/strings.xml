@@ -38,9 +38,16 @@
         <item>B</item>
         <item>O</item>
     </string-array>
-    <string name="OK">OK</string>
+    <string name="OK">Save</string>
     <string name="title_activity_main">Home</string>
     <string name="title_home">Home</string>
     <string name="title_map">Map</string>
     <string name="title_user">Personal</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="waitingStatusAmbulance">Waiting for requests</string>
+    <string name="notWaitingStatusAmbulance">Not waiting for requests</string>
+    <string name="enableDisableSearchingToggle">Enable/Disable searching</string>
+
 </resources>

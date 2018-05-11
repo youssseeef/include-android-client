@@ -10,8 +10,11 @@ import android.widget.Toast;
 
 import com.includecar.includecar.R;
 import com.includecar.includecar.activities.LoginActivity.LoginActivity;
-import com.includecar.includecar.activities.mainActivity.MainActivity;
+import com.includecar.includecar.activities.mainActivityambulance.MainActivityAmbulance;
 import com.includecar.includecar.network.login.TokenValidator;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -47,12 +50,26 @@ public class TestActivity extends AppCompatActivity {
                         public void onResponse(Call call, Response response) throws IOException {
                             ResponseBody responseBody = response.body();
                             String responseString = responseBody.string().toString();
-                            backgroundThreadShortToast(TestActivity.this,responseString);
                             //this is dumb but works for now. TODO: Use status codes obviously.
-                            if(responseString.contains("Unauthorized")){
+                            if(responseString.contains("unauthorized")){
                                 moveToLoginActivity();//invalid token
-                            }else if(responseString.contains("OK")){
-                                moveToMainActivity();
+                            }else if(responseString.contains("success")){
+                                try{
+                                    JSONObject jsonObject = new JSONObject(responseString);
+                                    String userType = jsonObject.getString("userType");
+                                    String userId = jsonObject.getString("userType");
+                                    if(userType.equals("car")){
+                                        moveToLoginActivity();//cars don't have a mobile app.
+                                    }else if(userType.equals("ambulance")){
+                                        moveToMainActivity();
+                                    }else if(userType.equals("medicalProfile")){
+                                        backgroundThreadShortToast(TestActivity.this,"MEDICAL");
+                                    }else{
+                                        moveToLoginActivity();
+                                    }
+                                }catch(JSONException je){
+
+                                }
                             }
                         }
                     });
@@ -71,10 +88,12 @@ public class TestActivity extends AppCompatActivity {
     public void moveToLoginActivity(){
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        finish();
     }
     public void moveToMainActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainActivityAmbulance.class);
         startActivity(intent);
+        finish();
     }
     public static void backgroundThreadShortToast(final Context context,
                                                   final String msg) {
