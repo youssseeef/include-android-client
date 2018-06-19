@@ -33,10 +33,15 @@
     <string name="Phone">Phone Number</string>
     <string name="Age">Age</string>
     <string-array name="Blood_Group">
-        <item>A</item>
-        <item>AB</item>
-        <item>B</item>
-        <item>O</item>
+        <item>Unknown</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>O+</item>
+        <item>O-</item>
     </string-array>
     <string name="OK">Save</string>
     <string name="title_activity_main">Home</string>
@@ -49,5 +54,12 @@
     <string name="waitingStatusAmbulance">Waiting for requests</string>
     <string name="notWaitingStatusAmbulance">Not waiting for requests</string>
     <string name="enableDisableSearchingToggle">Enable/Disable searching</string>
+    <string name="title_activity_main_medical_profile">MainActivityMedicalProfile</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_scan">Scan</string>
+    <string name="Birthdate">Birthdate</string>
+    <string name="ProjectTitle">Include</string>
 
 </resources>

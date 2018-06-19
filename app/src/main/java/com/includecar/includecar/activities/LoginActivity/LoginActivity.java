@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.includecar.includecar.R;
-import com.includecar.includecar.activities.testactivity.TestActivity;
+import com.includecar.includecar.activities.startactivity.StartActivity;
 import com.includecar.includecar.network.login.LoginClass;
 
 import org.json.JSONException;
@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     //this will be act as a temporary home activity - rough navigation to other activities of the project.
     public void moveToTestActivity(){
-        Intent intent = new Intent(this, TestActivity.class);
+        Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
     }
 }

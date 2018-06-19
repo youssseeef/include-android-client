@@ -1,4 +1,4 @@
-package com.includecar.includecar.activities.testactivity;
+package com.includecar.includecar.activities.startactivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.includecar.includecar.R;
 import com.includecar.includecar.activities.LoginActivity.LoginActivity;
 import com.includecar.includecar.activities.mainActivityambulance.MainActivityAmbulance;
+import com.includecar.includecar.activities.mainActivitymedicalprofile.MainActivityMedicalProfile;
 import com.includecar.includecar.network.login.TokenValidator;
 
 import org.json.JSONException;
@@ -24,35 +25,41 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class TestActivity extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity {
     private final int SPLASH_DISPLAY_LENGTH = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
+        setContentView(R.layout.activity_start);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Paper.init(TestActivity.this);
-                //get token
+                //Paper is like an ORM for SQLLite..
+                Paper.init(StartActivity.this);
+                //I try to get a pre-saved login token.
                 String savedToken = Paper.book().read("login_Key","null");
+                //token validator
                 TokenValidator tokenValidator = new TokenValidator();
                 try{
                     tokenValidator.run(savedToken, new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
-                            //network error//redirect to home screen
+                            //network/other type of error
+                            // redirect to home screen
                             moveToLoginActivity();
                         }
 
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
+                            //got a response from the server
                             ResponseBody responseBody = response.body();
+
                             String responseString = responseBody.string().toString();
-                            //this is dumb but works for now. TODO: Use status codes obviously.
+                            // Use status codes obviously.
                             if(responseString.contains("unauthorized")){
-                                moveToLoginActivity();//invalid token
+                                moveToLoginActivity();
+                                //invalid token//can't login
                             }else if(responseString.contains("success")){
                                 try{
                                     JSONObject jsonObject = new JSONObject(responseString);
@@ -63,7 +70,7 @@ public class TestActivity extends AppCompatActivity {
                                     }else if(userType.equals("ambulance")){
                                         moveToMainActivity();
                                     }else if(userType.equals("medicalProfile")){
-                                        backgroundThreadShortToast(TestActivity.this,"MEDICAL");
+                                        moveToMainMedicalActivity();
                                     }else{
                                         moveToLoginActivity();
                                     }
@@ -92,6 +99,11 @@ public class TestActivity extends AppCompatActivity {
     }
     public void moveToMainActivity(){
         Intent intent = new Intent(this, MainActivityAmbulance.class);
+        startActivity(intent);
+        finish();
+    }
+    public void moveToMainMedicalActivity(){
+        Intent intent = new Intent(this, MainActivityMedicalProfile.class);
         startActivity(intent);
         finish();
     }
