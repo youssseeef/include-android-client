@@ -47,8 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     protected void signInClicked(){
-        String username = mUserNameEditText.getText().toString();
-        String password = mPasswordEditText.getText().toString();
+        final String username = mUserNameEditText.getText().toString();
+        final String password = mPasswordEditText.getText().toString();
         LoginClass loginClass = new LoginClass();
         try{
             loginClass.run(username, password, new Callback() {
@@ -71,6 +71,10 @@ public class LoginActivity extends AppCompatActivity {
                             String token = jsonObject.get("token").toString();
                             Log.e("TOKEN_LOGIN_ACTIVITY",token);
                             Paper.book().write("login_Key",token);
+                            //TODO: Implement this, Joe! -Joe
+                            //TODO: DO NOT USE SUCCESS, USE STATUS CODES MAN.
+                            Paper.book().write("login_username",username);
+                            Paper.book().write("login_password",password);
                             moveToTestActivity();
                         }catch(JSONException e){
                             e.printStackTrace();

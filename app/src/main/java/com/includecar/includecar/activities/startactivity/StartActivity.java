@@ -57,7 +57,7 @@ public class StartActivity extends AppCompatActivity {
 
                             String responseString = responseBody.string().toString();
                             // Use status codes obviously.
-                            if(responseString.contains("unauthorized")){
+                            if(response.code() == 401){
                                 moveToLoginActivity();
                                 //invalid token//can't login
                             }else if(responseString.contains("success")){

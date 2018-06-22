@@ -61,5 +61,7 @@
     <string name="title_scan">Scan</string>
     <string name="Birthdate">Birthdate</string>
     <string name="ProjectTitle">Include</string>
+    <string name="emergency_contact_name">Emergency Contact Name</string>
+    <string name="emergency_contact_number">Emergency Contact Number</string>
 
 </resources>
