@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_scan_QR"
+        android:icon="@drawable/ic_qr_scan"
+        android:title="@string/title_scan" />
+
+    <item
+        android:id="@+id/navigation_medical_editor"
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:title="@string/title_profile" />
+
+
+</menu>

@@ -1,0 +1,609 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:fillViewport="true"
+    tools:context="com.includecar.includecar.fragments.user.UserFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/nameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/Name"
+            android:inputType="textPersonName">
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/emailInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/nameInput"
+            android:layout_below="@+id/nameInput"
+            android:ems="10"
+            android:focusable="false"
+            android:enabled="false"
+            android:hint="@string/Email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/phoneInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/emailInput"
+            android:ems="10"
+            android:hint="@string/Phone"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/emergencyContactName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/phoneInput"
+            android:ems="10"
+            android:hint="@string/emergency_contact_name"
+            android:inputType="text" />
+        <EditText
+            android:id="@+id/emergencyContactNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/emergencyContactName"
+            android:ems="10"
+            android:hint="@string/emergency_contact_number"
+            android:inputType="phone" />
+        <EditText
+            android:id="@+id/ageInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/emergencyContactNumber"
+            android:ems="10"
+            android:hint="@string/Birthdate"
+            android:focusable="false"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/surgicalHistoryInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/ageInput"
+            android:ems="10"
+            android:hint="@string/SurgicalHistory"
+            android:inputType="textMultiLine" />
+
+        <EditText
+            android:id="@+id/allergiesToDrugsInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/medicationsInput"
+            android:ems="10"
+            android:hint="@string/AllergiesToDrugs"
+            android:inputType="textMultiLine" />
+
+        <EditText
+            android:id="@+id/medicationsInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/surgicalHistoryInput"
+            android:ems="10"
+            android:hint="@string/Medications"
+            android:inputType="textMultiLine" />
+
+        <TextView
+            android:id="@+id/bloodGroupLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/bloodGroup"
+            android:text="@string/BloodGroup"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <Spinner
+            android:id="@+id/bloodGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/allergiesToDrugsInput"
+            android:layout_toRightOf="@+id/bloodGroupLabel"
+            android:entries="@array/Blood_Group"
+            android:spinnerMode="dialog" />
+
+        <TextView
+            android:id="@+id/addictLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/bloodGroup"
+            android:text="@string/Addict"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RadioGroup
+            android:id="@+id/addictRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/addictLabel"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="-7dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/addictYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:checked="true"
+                android:text="@string/Yes" />
+
+            <RadioButton
+                android:id="@+id/addictNo"
+                android:layout_width="match_parent"
+                android:buttonTint ="@color/colorPrimaryDark"
+                android:layout_height="wrap_content"
+                android:text="@string/No" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/smokerLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/addictRadio"
+            android:text="@string/Smoker"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RadioGroup
+            android:id="@+id/smokerRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/smokerLabel"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="-7dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/smokerYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:checked="true"
+                android:text="@string/Yes" />
+
+            <RadioButton
+                android:id="@+id/smokerNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint ="@color/colorPrimaryDark"
+                android:text="@string/No" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/cancerLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/smokerRadio"
+            android:text="@string/Cancer"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RadioGroup
+            android:id="@+id/cancerRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/cancerLabel"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="-7dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/cancerYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:checked="true"
+                android:text="@string/Yes" />
+
+            <RadioButton
+                android:id="@+id/cancerNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint ="@color/colorPrimaryDark"
+                android:text="@string/No" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/chronicObstructivePulmonaryLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/cancerRadio"
+            android:text="@string/ChronicObstructivePulmonary"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RadioGroup
+            android:id="@+id/chronicObstructivePulmonaryRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/chronicObstructivePulmonaryLabel"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/chronicObstructivePulmonaryYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:checked="true"
+                android:text="@string/Yes" />
+
+            <RadioButton
+                android:id="@+id/chronicObstructivePulmonaryNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint ="@color/colorPrimaryDark"
+                android:text="@string/No" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/diseaseLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/chronicObstructivePulmonaryRadio"
+            android:text="@string/Disease"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RadioGroup
+            android:id="@+id/diseaseRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/diseaseLabel"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="-7dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/diseaseYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:checked="true"
+                android:text="@string/Yes" />
+
+            <RadioButton
+                android:id="@+id/diseaseNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint ="@color/colorPrimaryDark"
+                android:text="@string/No" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/clottingDisorderLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/diseaseRadio"
+            android:text="@string/ClottingDisorder"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RadioGroup
+            android:id="@+id/clottingDisorderRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/clottingDisorderLabel"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="-7dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/clottingDisorderYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:checked="true"
+                android:text="@string/Yes" />
+
+            <RadioButton
+                android:id="@+id/clottingDisorderNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint ="@color/colorPrimaryDark"
+                android:text="@string/No" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/heartFailureLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/clottingDisorderRadio"
+            android:text="@string/HeartFailure"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RadioGroup
+            android:id="@+id/heartFailureRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/heartFailureLabel"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="-7dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/heartFailureYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:checked="true"
+                android:text="@string/Yes" />
+
+            <RadioButton
+                android:id="@+id/heartFailureNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint ="@color/colorPrimaryDark"
+                android:text="@string/No" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/diabetesLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/heartFailureRadio"
+            android:text="@string/Diabetes"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RadioGroup
+            android:id="@+id/diabetesRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/diabetesLabel"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="-7dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/diabetesYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:checked="true"
+                android:text="@string/Yes" />
+
+            <RadioButton
+                android:id="@+id/diabetesNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint ="@color/colorPrimaryDark"
+                android:text="@string/No" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/emhysemaLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/diabetesRadio"
+            android:text="@string/Emhysema"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RadioGroup
+            android:id="@+id/emhysemaRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/emhysemaLabel"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="-7dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/emhysemaYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:checked="true"
+                android:text="@string/Yes" />
+
+            <RadioButton
+                android:id="@+id/emhysemaNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint ="@color/colorPrimaryDark"
+                android:text="@string/No" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/hepatitisLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/emhysemaRadio"
+            android:text="@string/Hepatitis"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RadioGroup
+            android:id="@+id/hepatitisRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/hepatitisLabel"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="-7dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/hepatitisYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:checked="true"
+                android:text="@string/Yes" />
+
+            <RadioButton
+                android:id="@+id/hepatitisNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint ="@color/colorPrimaryDark"
+                android:text="@string/No" />
+        </RadioGroup>
+
+        <TextView
+                android:id="@+id/hypertensionLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/hepatitisRadio"
+            android:text="@string/Hypertension"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RadioGroup
+            android:id="@+id/hypertensionRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/hypertensionLabel"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="-7dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/hypertensionYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:checked="true"
+                android:text="@string/Yes" />
+
+            <RadioButton
+                android:id="@+id/hypertensionNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint ="@color/colorPrimaryDark"
+                android:text="@string/No" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/myocardialInfractionLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/hypertensionRadio"
+            android:text="@string/MyocardialInfraction"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RadioGroup
+            android:id="@+id/myocardialInfractionRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/myocardialInfractionLabel"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="-7dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/myocardialInfractionYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:checked="true"
+                android:text="@string/Yes" />
+
+            <RadioButton
+                android:id="@+id/myocardialInfractionNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint ="@color/colorPrimaryDark"
+                android:text="@string/No" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/seizuresLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/myocardialInfractionRadio"
+            android:text="@string/Seizures"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RadioGroup
+            android:id="@+id/seizuresRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/seizuresLabel"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="-7dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/seizuresYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:checked="true"
+                android:text="@string/Yes" />
+
+            <RadioButton
+                android:id="@+id/seizuresNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint ="@color/colorPrimaryDark"
+                android:text="@string/No" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/strokesLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/seizuresRadio"
+            android:text="@string/Strokes"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RadioGroup
+            android:id="@+id/strokesRadio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/strokesLabel"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="-7dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/strokesYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:checked="true"
+                android:text="@string/Yes" />
+
+            <RadioButton
+                android:id="@+id/strokesNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:buttonTint ="@color/colorPrimaryDark"
+                android:text="@string/No" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/strokesRadio"
+            android:layout_centerHorizontal="true"
+            android:text="@string/OK" />
+
+    </RelativeLayout>
+
+</ScrollView>

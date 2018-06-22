@@ -1,0 +1,14 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/map_notification_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+<fragment
+    class="com.google.android.gms.maps.SupportMapFragment"
+    android:id="@+id/map_notification_fragment_map"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.includecar.includecar.fragments.notificationmaps.NotificationsMapsFragment"/>
+</LinearLayout>
