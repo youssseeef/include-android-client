@@ -15,35 +15,32 @@ import com.includecar.includecar.fragments.ambulancestatus.AmbulanceStatusFragme
 import com.includecar.includecar.fragments.home.HomeFragment;
 import com.includecar.includecar.fragments.notificationmaps.NotificationsMapsFragment;
 import com.includecar.includecar.fragments.user.UserFragment;
+import com.includecar.includecar.helperclasses.CustomViewPager;
+import com.includecar.includecar.helperclasses.ViewPagerAdapter;
 
 public class MainActivityAmbulance extends AppCompatActivity implements UserFragment.OnFragmentInteractionListener,
         NotificationsMapsFragment.OnFragmentInteractionListener,
         HomeFragment.OnFragmentInteractionListener,
         AmbulanceStatusFragment.OnFragmentInteractionListener{
 
-    private FrameLayout mFrame;
-
+    private CustomViewPager mPager;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment selectedFragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    selectedFragment = AmbulanceStatusFragment.newInstance("12","123");
+                    mPager.setCurrentItem(0);
                     break;
                 case R.id.navigation_map:
-                    selectedFragment = NotificationsMapsFragment.newInstance("as","123");
+                    mPager.setCurrentItem(1);
                     break;
                 case R.id.navigation_user:
-                    selectedFragment = UserFragment.newInstance("as","123");
+                    mPager.setCurrentItem(2);
                     break;
             }
 
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.frameLayout, selectedFragment);
-            transaction.commit();
             return true;
         }
     };
@@ -52,12 +49,13 @@ public class MainActivityAmbulance extends AppCompatActivity implements UserFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mFrame = (FrameLayout) findViewById(R.id.frameLayout);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        mPager = findViewById(R.id.viewpager1);
+        ViewPagerAdapter adapter = new ViewPagerAdapter (MainActivityAmbulance.this.getSupportFragmentManager());
+        adapter.addFragment(AmbulanceStatusFragment.newInstance("awe","aweawe"), "Ambulance Status");
+        adapter.addFragment(NotificationsMapsFragment.newInstance("awecaw","wervwer"), "Map");
+        mPager.setAdapter(adapter);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frameLayout, new AmbulanceStatusFragment());
-        transaction.commit();
     }
     public void onFragmentInteraction(Uri data){
 
