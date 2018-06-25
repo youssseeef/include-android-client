@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -50,7 +51,7 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
 
     private TextView mStatusTextView;
     private TextView mStatusTextView2;
-
+    private Button mEndAccidentButton;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -115,7 +116,44 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
         toggleSwitchAmbulanceRequests = (Switch) v.findViewById(R.id.toggle_ambulance_search_switch);
         mStatusTextView = (TextView) v.findViewById(R.id.request_status_ambulance);
         mStatusTextView2= (TextView) v.findViewById(R.id.request_status_ambulance2);
+        mEndAccidentButton = v.findViewById(R.id.END_ACCIDENT_BUTTON);
+        mEndAccidentButton.setVisibility(View.GONE);
+        mEndAccidentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AmbulanceDataUpdater adu = new AmbulanceDataUpdater();
+                String ambulanceId = Paper.book().read("login_username");
 
+                adu.deleteAmbulanceData(ambulanceId, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if(response.code() == 200){
+                            //success
+                            if(AmbulanceStatusFragment.this.getActivity() != null){
+                                Paper.book().delete("car_latitude");
+                                Paper.book().delete("car_longitude");
+                                AmbulanceStatusFragment.this.getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        toggleSwitchAmbulanceRequests.setChecked(false);
+                                        mEndAccidentButton.setVisibility(View.GONE);
+
+                                    }
+                                });
+                            }
+
+                        }else {
+                            //failed
+                        }
+                    }
+                });
+            }
+        });
         toggleSwitchAmbulanceRequests.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
@@ -266,12 +304,14 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
                                 Paper.book().write("car_longitude", longitude);
                                 Paper.book().write("car_Id", carId);
 
+
                                 if(AmbulanceStatusFragment.this.getActivity() != null){
                                     AmbulanceStatusFragment.this.getActivity().runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            //Handle UI here
-                                            mStatusTextView2.setText("Accident Happened! Check the map!");}
+                                        //Handle UI here
+                                        mEndAccidentButton.setVisibility(View.VISIBLE);
+                                        mStatusTextView2.setText("Accident Happened! Check the map!");}
                                     });
                                 }
                             }

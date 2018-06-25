@@ -22,7 +22,7 @@ public class AmbulanceDataUpdater {
     //will be used to get the ambulance data at the beginning. mainly to set the status of the button
     private String URL_GET_AMBULANNCE_DATA = "https://car-production-app.herokuapp.com/api/sos/getAmbulanceData";
     //Used to manually delete the associated car and accident
-    private String URL_DELETE = "https://car-production-app.herokuapp.com/api/sos/deleteAssociatedCarAndAccident";
+    private String URL_DELETE = "https://car-production-app.herokuapp.com/api/sos/endAccident";
 
     private static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
