@@ -249,7 +249,6 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
                         ResponseBody responseBody = response.body();
                         String bodyString = responseBody.string();
                         Log.e("TATEARAWERAWE",bodyString);
-
                         try{
                             JSONObject jsonObject = new JSONObject(bodyString);
                             if(jsonObject.has("carAssigned")){
@@ -276,8 +275,6 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
                                     });
                                 }
                             }
-
-
                         }catch(JSONException e){
                             e.printStackTrace();
                         }
@@ -337,7 +334,6 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
                                     }else{
                                         mStatusTextView.setText(R.string.notWaitingStatusAmbulance);
                                         toggleSwitchAmbulanceRequests.setChecked(false);
-
                                     }
 
                                 }
@@ -347,8 +343,6 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
                     }catch(JSONException e){
                         e.printStackTrace();
                     }
-
-
                 }
             }
         });
