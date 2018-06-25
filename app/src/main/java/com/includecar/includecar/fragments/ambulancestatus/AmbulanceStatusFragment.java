@@ -8,6 +8,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -43,17 +44,22 @@ import okhttp3.ResponseBody;
  * create an instance of this fragment.
  */
 public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.OnRequestPermissionsResultCallback, LocationListener{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+
     private Switch toggleSwitchAmbulanceRequests;
+
     private TextView mStatusTextView;
     private TextView mStatusTextView2;
+
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
     private double longitude = 0.0;
     private double latitude = 0.0;
+
     private AmbulanceLocationController amlc;
-    // TODO: Rename and change types of parameters
+
     private String mParam1;
     private String mParam2;
 
@@ -95,7 +101,7 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                CheckForAssignedAccidents();
+                checkForButtonStatus();
             }
         },2000);
 
@@ -109,11 +115,14 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
         toggleSwitchAmbulanceRequests = (Switch) v.findViewById(R.id.toggle_ambulance_search_switch);
         mStatusTextView = (TextView) v.findViewById(R.id.request_status_ambulance);
         mStatusTextView2= (TextView) v.findViewById(R.id.request_status_ambulance2);
+
         toggleSwitchAmbulanceRequests.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+                checkForAssignedAccidents();
                 if(isChecked){
                     mStatusTextView.setText(R.string.waitingStatusAmbulance);
+                    mStatusTextView2.setText(R.string.SearchingForAccidents);
                     amlc = new AmbulanceLocationController(getActivity());
                     if(amlc.isPermissionGranted()){
                         LocationManager locMan = amlc.getLocationManager(AmbulanceStatusFragment.this.getActivity());
@@ -129,21 +138,21 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
                             locMan.removeUpdates(AmbulanceStatusFragment.this);
                         }
 
+                    }else{
+                        //amlc permission not granted.
                     }
+                    //should run update routing here here TODO
+
                 }else{
                     mStatusTextView.setText(R.string.notWaitingStatusAmbulance);
+                    mStatusTextView2.setText(R.string.not_searching_for_accidents);
+                    //stop checking and set server data to not waiting for requests.
                 }
             }
         });
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -190,6 +199,7 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
                     }
                 } else {
                     toggleSwitchAmbulanceRequests.setChecked(false);
+                    toggleSwitchAmbulanceRequests.setEnabled(false);
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
@@ -200,6 +210,10 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
     public void onLocationChanged(Location location) {
         this.latitude = location.getLatitude();
         this.longitude = location.getLongitude();
+        if(latitude != 0 && longitude != 0){
+            Paper.book().write("ambulance_my_position_latitude", String.valueOf(latitude));
+            Paper.book().write("ambulance_my_position_longitude", String.valueOf(longitude));
+        }
     }
 
     @Override
@@ -216,9 +230,83 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
     public void onProviderDisabled(String provider) {
 
     }
-    public void CheckForAssignedAccidents(){
+
+    public void checkForAssignedAccidents(){
         AmbulanceDataUpdater adu = new AmbulanceDataUpdater();
-        adu.updateAmbulanceData(String.valueOf(longitude), String.valueOf(latitude),"c12qeqwceqwecvqwevqweqwioeuq8weuq3", new Callback(){
+        String ambulanceId = Paper.book().read("login_username");
+        if(latitude != 0 && longitude != 0){
+            adu.updateAmbulanceData(String.valueOf(longitude), String.valueOf(latitude),ambulanceId,String.valueOf(toggleSwitchAmbulanceRequests.isChecked()), new Callback(){
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d("FAILED" ,e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+
+                    if(response.code() == 200){
+
+                        ResponseBody responseBody = response.body();
+                        String bodyString = responseBody.string();
+                        Log.e("TATEARAWERAWE",bodyString);
+
+                        try{
+                            JSONObject jsonObject = new JSONObject(bodyString);
+                            if(jsonObject.has("carAssigned")){
+                                String carAssigned = jsonObject.get("carAssigned").toString();
+                                String carlocation = jsonObject.get("carLocation").toString();
+                                JSONObject jsonObject2 = new JSONObject(carAssigned);
+                                JSONObject jsonObject3 = new JSONObject(carlocation);
+                                //fetching data from the reesponse
+                                final String latitude = jsonObject3.get("latitude").toString();
+                                final String longitude = jsonObject3.get("longitude").toString();
+                                final String carId = jsonObject2.get("carId").toString();
+
+                                //Storing them for other activities to access.
+                                Paper.book().write("car_latitude", latitude);
+                                Paper.book().write("car_longitude", longitude);
+                                Paper.book().write("car_Id", carId);
+
+                                if(AmbulanceStatusFragment.this.getActivity() != null){
+                                    AmbulanceStatusFragment.this.getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            //Handle UI here
+                                            mStatusTextView2.setText("Accident Happened! Check the map!");}
+                                    });
+                                }
+                            }
+
+
+                        }catch(JSONException e){
+                            e.printStackTrace();
+                        }
+
+                    }else{
+                        //error
+
+                    }
+                }
+
+            });
+        }
+
+        if(toggleSwitchAmbulanceRequests.isChecked()){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    checkForAssignedAccidents();
+
+                }
+            },2000);
+        }
+
+    }
+    //that runs at the beginning
+    public void checkForButtonStatus(){
+        AmbulanceDataUpdater adu = new AmbulanceDataUpdater();
+        String ambulanceId = Paper.book().read("login_username");
+        adu.getAmbulanceData(ambulanceId, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 
@@ -226,41 +314,44 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                ResponseBody responseBody = response.body();
-                String bodyString = responseBody.string();
-                Log.e("TATEARAWERAWE",bodyString);
+                if(response.code() == 200){
+                    //not error
+                    ResponseBody responseBody = response.body();
+                    String bodyString = responseBody.string();
+                    Log.e("GETGET",bodyString);
 
-                try{
-                    JSONObject jsonObject = new JSONObject(bodyString);
-                    String carAssigned = jsonObject.get("carAssigned").toString();
-                    String carlocation = jsonObject.get("carLocation").toString();
-                    JSONObject jsonObject2 = new JSONObject(carAssigned);
-                    JSONObject jsonObject3 = new JSONObject(carlocation);
-                    final String latitude = jsonObject3.get("latitude").toString();
-                    final String longitude = jsonObject3.get("longitude").toString();
+                    try{
+                        JSONObject jsonObject = new JSONObject(bodyString);
+                        final String ambulanceReadyToTake = jsonObject.get("ambulanceReadyToTake").toString();
+                        Log.d("AMBULANCE_READ", ambulanceReadyToTake);
 
-                    final String carId = jsonObject2.get("carId").toString();
-                    if(AmbulanceStatusFragment.this.getActivity() != null){
-                        AmbulanceStatusFragment.this.getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                //Handle UI here
-                                mStatusTextView2.setText("lat: "+latitude + "lng: "+longitude);}
-                        });
+
+                        if(AmbulanceStatusFragment.this.getActivity() != null){
+                            AmbulanceStatusFragment.this.getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //Handle UI here
+                                    if(ambulanceReadyToTake.equals("true")){
+                                        mStatusTextView.setText(R.string.waitingStatusAmbulance);
+                                        toggleSwitchAmbulanceRequests.setChecked(true);
+                                    }else{
+                                        mStatusTextView.setText(R.string.notWaitingStatusAmbulance);
+                                        toggleSwitchAmbulanceRequests.setChecked(false);
+
+                                    }
+
+                                }
+                            });
+                        }
+
+                    }catch(JSONException e){
+                        e.printStackTrace();
                     }
 
-                }catch(JSONException e){
-                    e.printStackTrace();
+
                 }
-
-
             }
         });
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                CheckForAssignedAccidents();
-            }
-        },2000);
+
     }
 }

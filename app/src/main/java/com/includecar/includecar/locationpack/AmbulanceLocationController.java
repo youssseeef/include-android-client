@@ -25,7 +25,6 @@ public class AmbulanceLocationController {
     public static final int MY_PERMISSIONS_ACCESS_FINE_LOCATION = 3123;
     private static boolean permissionGiven = true ;
 
-
     private LocationManager locationManager;
     private Context mContext;
     public AmbulanceLocationController(Context mContext){

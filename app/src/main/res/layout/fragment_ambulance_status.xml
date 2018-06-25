@@ -21,7 +21,7 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/waitingStatusAmbulance"
+        android:text="@string/notWaitingStatusAmbulance"
         android:textAlignment="center"
         android:textSize="36sp"
         android:typeface="sans" />
@@ -30,7 +30,7 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/waitingStatusAmbulance"
+        android:text="@string/notWaitingStatusAmbulance"
         android:textAlignment="center"
         android:textSize="36sp"
         android:typeface="sans" />

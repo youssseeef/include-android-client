@@ -63,5 +63,7 @@
     <string name="ProjectTitle">Include</string>
     <string name="emergency_contact_name">Emergency Contact Name</string>
     <string name="emergency_contact_number">Emergency Contact Number</string>
+    <string name="SearchingForAccidents">Searching For Accidents</string>
+    <string name="not_searching_for_accidents">Not Searching for accidents.</string>
 
 </resources>
