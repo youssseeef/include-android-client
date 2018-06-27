@@ -137,6 +137,7 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
                             if(AmbulanceStatusFragment.this.getActivity() != null){
                                 Paper.book().delete("car_latitude");
                                 Paper.book().delete("car_longitude");
+                                Paper.book().delete("car_Id");
                                 AmbulanceStatusFragment.this.getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -150,7 +151,9 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
                         }else {
                             //failed
                         }
+                        response.close();
                     }
+
                 });
             }
         });
@@ -323,6 +326,7 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
                         //error
 
                     }
+                    response.close();
                 }
 
             });
@@ -384,6 +388,7 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
                         e.printStackTrace();
                     }
                 }
+                response.close();
             }
         });
 

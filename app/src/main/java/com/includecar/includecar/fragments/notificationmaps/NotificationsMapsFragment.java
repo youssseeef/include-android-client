@@ -193,13 +193,17 @@ public class NotificationsMapsFragment extends Fragment implements OnMapReadyCal
                     builder.include(car);
                     LatLngBounds bounds = builder.build();
                     DisplayMetrics displaymetrics = new DisplayMetrics();
-                    getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+                    if(getActivity() != null){
+                        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+                    }
                     int height = displaymetrics.heightPixels;
                     int width = displaymetrics.widthPixels;
                     int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+                    if ((height != 0) && width != 0){
+                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+                        googleMap.animateCamera(cu);
+                    }
 
-                    CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
-                    googleMap.animateCamera(cu);
                 }
 
             }

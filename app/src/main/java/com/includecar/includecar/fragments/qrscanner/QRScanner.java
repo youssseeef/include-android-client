@@ -96,7 +96,7 @@ public class QRScanner extends Fragment {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         backgroundThreadShortToast(QRScanner.this.getActivity(), "Awesome! Your profile was added to the car!");
-
+                        response.close();
                     }
                 });
                 getActivity().runOnUiThread(new Runnable() {

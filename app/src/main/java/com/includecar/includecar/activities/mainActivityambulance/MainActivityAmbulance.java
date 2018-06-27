@@ -15,13 +15,14 @@ import com.includecar.includecar.fragments.ambulancestatus.AmbulanceStatusFragme
 import com.includecar.includecar.fragments.home.HomeFragment;
 import com.includecar.includecar.fragments.notificationmaps.NotificationsMapsFragment;
 import com.includecar.includecar.fragments.user.UserFragment;
+import com.includecar.includecar.fragments.userdisplaydetails.DisplayUserDetailsFragment;
 import com.includecar.includecar.helperclasses.CustomViewPager;
 import com.includecar.includecar.helperclasses.ViewPagerAdapter;
 
-public class MainActivityAmbulance extends AppCompatActivity implements UserFragment.OnFragmentInteractionListener,
+public class MainActivityAmbulance extends AppCompatActivity implements
         NotificationsMapsFragment.OnFragmentInteractionListener,
-        HomeFragment.OnFragmentInteractionListener,
-        AmbulanceStatusFragment.OnFragmentInteractionListener{
+        AmbulanceStatusFragment.OnFragmentInteractionListener,
+        DisplayUserDetailsFragment.OnFragmentInteractionListener{
 
     private CustomViewPager mPager;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -53,6 +54,7 @@ public class MainActivityAmbulance extends AppCompatActivity implements UserFrag
         ViewPagerAdapter adapter = new ViewPagerAdapter (MainActivityAmbulance.this.getSupportFragmentManager());
         adapter.addFragment(AmbulanceStatusFragment.newInstance("awe","aweawe"), "Ambulance Status");
         adapter.addFragment(NotificationsMapsFragment.newInstance("awecaw","wervwer"), "Map");
+        adapter.addFragment(DisplayUserDetailsFragment.newInstance("",""), "Medical Data");
         mPager.setAdapter(adapter);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

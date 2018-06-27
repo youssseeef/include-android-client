@@ -228,6 +228,7 @@ public class UserFragment extends Fragment {
                         Log.d("JSON EXCEPTION BOY", e.toString());
                     }
                 }
+                response.close();
 
             }
         });
@@ -278,6 +279,7 @@ public class UserFragment extends Fragment {
                                 }else{
                                     backgroundThreadShortToast(UserFragment.this.getActivity(),"Data not updated :( Check your connection!");
                                 }
+                                response.close();
                             }
                         }
                 );
