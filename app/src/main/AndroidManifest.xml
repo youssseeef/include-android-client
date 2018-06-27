@@ -56,7 +56,11 @@
             android:label="@string/title_activity_main" />
         <activity
             android:name=".activities.mainActivitymedicalprofile.MainActivityMedicalProfile"
-            android:label="@string/title_activity_main_medical_profile"></activity>
+            android:label="@string/title_activity_main_medical_profile" />
+        <activity
+            android:name=".activities.rescueActivity.RescueCarActivity"
+            android:label="@string/title_activity_rescue_car"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -12,6 +12,7 @@ import com.includecar.includecar.R;
 import com.includecar.includecar.activities.LoginActivity.LoginActivity;
 import com.includecar.includecar.activities.mainActivityambulance.MainActivityAmbulance;
 import com.includecar.includecar.activities.mainActivitymedicalprofile.MainActivityMedicalProfile;
+import com.includecar.includecar.activities.rescueActivity.RescueCarActivity;
 import com.includecar.includecar.network.login.TokenValidator;
 
 import org.json.JSONException;
@@ -71,6 +72,8 @@ public class StartActivity extends AppCompatActivity {
                                         moveToMainActivity();
                                     }else if(userType.equals("medicalProfile")){
                                         moveToMainMedicalActivity();
+                                    }else if(userType.equals("rescueCar")){
+                                        moveToRescueActivity();
                                     }else{
                                         moveToLoginActivity();
                                     }
@@ -104,6 +107,11 @@ public class StartActivity extends AppCompatActivity {
     }
     public void moveToMainMedicalActivity(){
         Intent intent = new Intent(this, MainActivityMedicalProfile.class);
+        startActivity(intent);
+        finish();
+    }
+    public void moveToRescueActivity(){
+        Intent intent = new Intent(this, RescueCarActivity.class);
         startActivity(intent);
         finish();
     }
