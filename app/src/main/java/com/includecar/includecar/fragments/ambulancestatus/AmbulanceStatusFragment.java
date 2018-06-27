@@ -176,7 +176,9 @@ public class AmbulanceStatusFragment extends Fragment implements ActivityCompat.
                             }
                         }else{
                             toggleSwitchAmbulanceRequests.setChecked(false);
-                            locMan.removeUpdates(AmbulanceStatusFragment.this);
+                            if(locMan != null){
+                                locMan.removeUpdates(AmbulanceStatusFragment.this);
+                            }
                         }
 
                     }else{
