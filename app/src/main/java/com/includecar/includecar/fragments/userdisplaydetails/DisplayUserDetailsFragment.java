@@ -55,7 +55,7 @@ public class DisplayUserDetailsFragment extends Fragment  {
 
     private Button mButtonPrevious;
     private Button mButtonNext;
-    private int currentPosition;
+    private int currentPosition = 0;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -152,10 +152,10 @@ public class DisplayUserDetailsFragment extends Fragment  {
         final MedicalDataFetcher mdf = new MedicalDataFetcher();
         String carId = Paper.book().read("car_Id");
         //find a way to start this when the carId Changes means another car.
-        mButtonNext.setOnClickListener(new View.OnClickListener() {
+        mButtonPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentPosition++;
+                currentPosition--;
                 manageThePreviousNextButtons();
                 updateTheScreenWithCurrentPosition();
 
@@ -165,7 +165,7 @@ public class DisplayUserDetailsFragment extends Fragment  {
         mButtonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentPosition--;
+                currentPosition++;
                 manageThePreviousNextButtons();
                 updateTheScreenWithCurrentPosition();
             }
@@ -210,10 +210,11 @@ public class DisplayUserDetailsFragment extends Fragment  {
                                             JSONObject jsonObject = new JSONObject( bodyString);
                                             JSONObject answer2 = (JSONObject)jsonObject.get("answer");
                                             medicalDataForUsers.add(answer2);
+                                            Log.d("ANSWERR" , answer2.toString());
                                             if(medicalDataForUsers.size() == medicalUsersAvailable.size()){
+                                                currentPosition = 0;
 
                                                 JSONObject answer = medicalDataForUsers.get(0);
-                                                currentPosition = 0;
                                                 final String fullNameAnswer = answer.get("fullName").toString();
                                                 final String emailAnswer = answer.get("username").toString();
                                                 final String phoneNumberAnswer = answer.get("phoneNumber").toString();
@@ -245,6 +246,7 @@ public class DisplayUserDetailsFragment extends Fragment  {
                                                     @Override
                                                     public void run() {
                                                         //update UI with pre-existing data from the server
+                                                        manageThePreviousNextButtons();
                                                         mFullNameEditText.setText(fullNameAnswer);
                                                         mEmail.setText(emailAnswer);
                                                         mPhoneNumber.setText(phoneNumberAnswer);
@@ -271,6 +273,7 @@ public class DisplayUserDetailsFragment extends Fragment  {
                                                         ((RadioButton)mStrokes.getChildAt(getIndexForRadioGroup(strokesAnswer))).setChecked(true);
                                                     }
                                                 });
+                                               // updateTheScreenWithCurrentPosition();
 
                                             }
                                         }catch(JSONException e){
@@ -440,8 +443,11 @@ public class DisplayUserDetailsFragment extends Fragment  {
 
 
     private void updateTheScreenWithCurrentPosition(){
-        if(medicalDataForUsers.size() == medicalUsersAvailable.size()){
+        Log.d("MED MED ALL", medicalUsersAvailable.toString());
+        Log.d("MED MED ALL", String.valueOf(currentPosition));
+        if(medicalDataForUsers.size() == medicalUsersAvailable.size() && currentPosition >= 0 && currentPosition <= medicalDataForUsers.size() -1){
             try {
+                Log.d("POSPOS",String.valueOf(currentPosition));
                 JSONObject answer = medicalDataForUsers.get(currentPosition);
                 final String fullNameAnswer = answer.get("fullName").toString();
                 final String emailAnswer = answer.get("username").toString();
@@ -474,6 +480,7 @@ public class DisplayUserDetailsFragment extends Fragment  {
                     @Override
                     public void run() {
                         //update UI with pre-existing data from the server
+                        manageThePreviousNextButtons();
                         mFullNameEditText.setText(fullNameAnswer);
                         mEmail.setText(emailAnswer);
                         mPhoneNumber.setText(phoneNumberAnswer);
@@ -508,7 +515,7 @@ public class DisplayUserDetailsFragment extends Fragment  {
     }
 
     private void manageThePreviousNextButtons(){
-        if(currentPosition == medicalDataForUsers.size() -1 ){
+        if(currentPosition == (medicalDataForUsers.size() -1) ){
             mButtonPrevious.setEnabled(true);
             mButtonNext.setEnabled(false);
         }else if(currentPosition == 0){

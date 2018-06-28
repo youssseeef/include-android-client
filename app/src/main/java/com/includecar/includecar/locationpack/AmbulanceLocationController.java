@@ -36,7 +36,7 @@ public class AmbulanceLocationController {
                 != PackageManager.PERMISSION_GRANTED) {
             // Permission is not granted
             ActivityCompat.requestPermissions((AppCompatActivity) mContext,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                     MY_PERMISSIONS_ACCESS_FINE_LOCATION);
         }else{
             locationManager = (LocationManager)
