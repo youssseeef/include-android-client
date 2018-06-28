@@ -107,5 +107,6 @@ public class LoginActivity extends AppCompatActivity {
     public void moveToTestActivity(){
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
+        finish();
     }
 }
