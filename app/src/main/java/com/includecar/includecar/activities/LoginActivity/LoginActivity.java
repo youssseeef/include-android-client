@@ -63,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
                     ResponseBody responseBody = response.body();
                     String bodyString = responseBody.string();
 
-                    backgroundThreadShortToast(LoginActivity.this,bodyString);
                     Log.e("LOGIN_ACTIVITY",bodyString);
                     if(bodyString.contains("success")){
                         try{
@@ -75,6 +74,8 @@ public class LoginActivity extends AppCompatActivity {
                             //TODO: DO NOT USE SUCCESS, USE STATUS CODES MAN.
                             Paper.book().write("login_username",username);
                             Paper.book().write("login_password",password);
+                            backgroundThreadShortToast(LoginActivity.this,"Login successful! We're logging you in.");
+
                             moveToTestActivity();
                         }catch(JSONException e){
                             e.printStackTrace();
